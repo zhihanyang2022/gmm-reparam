@@ -10,7 +10,7 @@ import torch.distributions as tdist
 
 class GMM(nn.Module):
     
-    def __init__(self, D, K, cov_style="full"):
+    def __init__(self, D, K, cov_style="full", μs_init_min_and_max=None):
         
         super().__init__()
         
@@ -19,7 +19,14 @@ class GMM(nn.Module):
         self.cov_style = cov_style
         
         self.pre_π = nn.Parameter(torch.zeros(self.K, ))
-        self.μs = nn.Parameter((torch.rand(self.K, self.D) - 0.5) * 2)
+        
+        if μs_init_min_and_max is None:
+            self.μs = nn.Parameter((torch.rand(self.K, self.D) - 0.5) * 2)
+        else:
+            μs_init_range = μs_init_min_and_max[1] - μs_init_min_and_max[0]
+            self.μs = nn.Parameter(
+                torch.rand(self.K, self.D) * μs_init_range.reshape(1, self.D) + μs_init_min_and_max[0].reshape(1, self.D)
+            )
         
         if self.cov_style == "full":
             Σs_init = torch.eye(D).reshape(1, D, D).repeat(self.K, 1, 1)
@@ -28,6 +35,10 @@ class GMM(nn.Module):
             self.pre_Σs = torch.nn.Parameter(torch.rand(self.K, self.D))
         else:
             raise ValueError(f"{cov_style} is an invalid covariance style.")
+            
+    @property
+    def π(self):
+        return torch.softmax(self.pre_π, dim=0)
     
     @property
     def categorical(self):
@@ -46,20 +57,17 @@ class GMM(nn.Module):
     def gaussians(self):
         return tdist.MultivariateNormal(self.μs, self.Σs)
         
-    def log_prob(self, samples, train_categorical):
+    def log_prob(self, samples):
         
         # this function just implements the log probability of the gmm model in a numerically stable way
         
         N = samples.shape[0]
-        if train_categorical:
-            log_π = F.log_softmax(self.pre_π, dim=0).reshape(1, -1)  # (1, K)
-        else:
-            log_π = F.log_softmax(self.pre_π.detach(), dim=0).reshape(1, -1)  # (1, K)
+        log_π = F.log_softmax(self.pre_π, dim=0).reshape(1, -1)  # (1, K)
         log_probs_under_each_gaussian = self.gaussians.log_prob(samples.view(N, 1, self.D))  # (N, K)
         log_probs = torch.logsumexp(log_π + log_probs_under_each_gaussian, dim=1)
         
         return log_probs
-        
+    
     def sample(self, N):
         
         indices = self.categorical.sample((N, ))  # (N,)
@@ -74,3 +82,13 @@ class GMM(nn.Module):
         ).squeeze()  # (N, D)
         
         return samples
+    
+    def compute_kl(self, log_unnorm_p, N_per_gaussian):
+        
+        # by pass reparameterizing the categorical using marginalization
+        # (this has much lower variance)
+        
+        samples = self.gaussians.rsample((N_per_gaussian, )).reshape(N_per_gaussian * self.K, self.D)
+        kl = (self.π.repeat(N_per_gaussian) * (self.log_prob(samples) - log_unnorm_p(samples))).sum() / N_per_gaussian
+        
+        return kl
