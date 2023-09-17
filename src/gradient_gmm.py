@@ -81,9 +81,10 @@ class GMM(nn.Module):
         return samples
     
     def compute_kl(self, log_unnorm_p, N_per_gaussian):
-        
-        # by pass reparameterizing the categorical using marginalization
-        # (this has much lower variance)
+
+        # I was able to compute a stochastic estimate of KL using two tricks:
+        # 1) bypass reparameterizing the categorical using marginalization (I don't want to use GumbelSoftmax)
+        # 2) pathwise gradient through Gaussians through reparameterization
         
         samples = self.gaussians.rsample((N_per_gaussian, )).reshape(N_per_gaussian * self.K, self.D)
         kl = (self.π.repeat(N_per_gaussian) * (self.log_prob(samples) - log_unnorm_p(samples))).sum() / N_per_gaussian
