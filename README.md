@@ -4,6 +4,9 @@ Below are two ways to use this repo.
 
 ## Example 1: density estimation given a dataset
 
+
+## Example 2: variational inference given the log of an unnormalized density 
+
 - 1st image: true (unnormalized) density
 - 2nd image: learned (empirical) density with arrows showing the initial and final positions of Gaussian means
 - 3rd image: mixture weights
@@ -43,9 +46,3 @@ Below are two ways to use this repo.
   <img src="examples/variational_inference_pngs/U8/mixture_weights.png" width="20%" />
   <img src="examples/variational_inference_pngs/U8/learning_curve.png" width="20%" />
 </p>
-
-## Example 2: variational inference given the log of an unnormalized density 
-
-```{python}
-print("Helloworld!")
-```
