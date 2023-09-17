@@ -7,6 +7,8 @@ Below are two ways to use this repo.
 
 ## Example 2: variational inference given the log of an unnormalized density 
 
+Legend:
+
 - 1st image: true (unnormalized) density
 - 2nd image: learned (empirical) density with arrows showing the initial and final positions of Gaussian means
 - 3rd image: learned mixture weights
