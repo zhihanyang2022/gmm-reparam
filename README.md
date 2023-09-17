@@ -9,7 +9,7 @@ Below are two ways to use this repo.
 
 - 1st image: true (unnormalized) density
 - 2nd image: learned (empirical) density with arrows showing the initial and final positions of Gaussian means
-- 3rd image: mixture weights
+- 3rd image: learned mixture weights
 - 4th image: learning curve
 
 <p align="middle">
