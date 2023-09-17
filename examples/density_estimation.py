@@ -45,7 +45,7 @@ for i in range(1, 1000+1):
 fig = plt.figure(figsize=(3.75, 3.75))
 plt.plot(mean_neg_log_liks)
 plt.xlabel("Number of Iterations")
-plt.xlabel("Exact Negative Log-lik.")
+plt.ylabel("Exact Negative Log-lik.")
 plt.savefig("density_estimation_pngs/learning_curve.png", dpi=200, bbox_inches='tight')
 
 
