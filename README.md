@@ -1,8 +1,8 @@
 # Fitting mixtures of full-rank Gaussians using gradient
 
-Below are two ways to use this repo.
-
 Local minima is a known problem for latent variable models. In 2D, this problem can be by-passed by having a mixture of a lot of Gaussians, as I have done here. (This might be a good motivation for putting a sparsity prior over the mixture weights; this model is usually called the [Bayesian mixture of Gaussians](https://github.com/zhihanyang2022/bayesian-mixture-of-gaussians)) For higher dimensionalities, this might not be a good strategy due to the curse of dimensionality, though my code supports arbitrary dimensionality and would run just fine.
+
+All experiments seeded and reproducible.
 
 ## Example 1: density estimation given a dataset
 
