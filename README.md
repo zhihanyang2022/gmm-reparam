@@ -2,7 +2,7 @@
 
 Below are two ways to use this repo.
 
-Note: Local minima is a known problem for optimizing latent variable models. In 2D, this problem can be by-passed by having a mixture of a lot of Gaussians, as I have done here. For higher dimensionalities, this might not be a good strategy due to the curse of dimensionality, though my code supports arbitrary dimensionality and should run just fine.
+Local minima is a known problem for latent variable models. In 2D, this problem can be by-passed by having a mixture of a lot of Gaussians, as I have done here. For higher dimensionalities, this might not be a good strategy due to the curse of dimensionality, though my code supports arbitrary dimensionality and would run just fine.
 
 ## Example 1: density estimation given a dataset
 
