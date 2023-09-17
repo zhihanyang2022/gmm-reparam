@@ -26,7 +26,7 @@ data_torch = torch.from_numpy(data)
 
 fig = plt.figure(figsize=(3.75, 3.75))
 plt.hist2d(data[:, 0], data[:, 1], bins=100, cmap="turbo", range=[[-3, 3], [-3, 3]])
-plt.savefig("density_estimation/true_empirical_density.png", dpi=200, bbox_inches='tight')
+plt.savefig("density_estimation_pngs/true_empirical_density.png", dpi=200, bbox_inches='tight')
 
 
 gmm = GMM(D=2, K=4, cov_style="full")
@@ -44,7 +44,9 @@ for i in range(1, 1000+1):
 
 fig = plt.figure(figsize=(3.75, 3.75))
 plt.plot(mean_neg_log_liks)
-plt.savefig("density_estimation/learning_curve.png", dpi=200, bbox_inches='tight')
+plt.xlabel("Number of Iterations")
+plt.xlabel("Exact Negative Log-lik.")
+plt.savefig("density_estimation_pngs/learning_curve.png", dpi=200, bbox_inches='tight')
 
 
 with torch.no_grad():
@@ -52,4 +54,4 @@ with torch.no_grad():
 
 fig = plt.figure(figsize=(3.75, 3.75))
 plt.hist2d(samples[:, 0], samples[:, 1], bins=100, cmap="turbo", range=[[-3, 3], [-3, 3]])
-plt.savefig("density_estimation/learned_empirical_density.png", dpi=200, bbox_inches='tight')
+plt.savefig("density_estimation_pngs/learned_empirical_density.png", dpi=200, bbox_inches='tight')
