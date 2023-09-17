@@ -4,6 +4,16 @@ Below are two ways to use this repo.
 
 ## Example 1: density estimation given a dataset
 
+Legend:
+- 1st image: true (empirical) density (from data)
+- 2nd image: learned (empirical) density
+- 3rd image: learning curve
+
+<p align="middle">
+  <img src="examples/density_estimation_pngs/true_empirical_density.png" width="30%" />
+  <img src="examples/density_estimation_pngs/learned_empirical_density.png" width="30%" /> 
+  <img src="examples/density_estimation_pngs/learning_curve.png" width="30%" />
+</p>
 
 ## Example 2: variational inference given the log of an unnormalized density 
 
