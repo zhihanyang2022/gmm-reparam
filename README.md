@@ -1,6 +1,6 @@
 # Fitting mixtures of full-rank Gaussians using gradient
 
-Below are two ways to use this repo.
+Below are two ways to use this repo. Local minima is a known problem for latent variable models - in 2D, this can be solved by having a mixture of many Gaussians. For higher dimensionalities, this might not be a good strategy, though my code supports arbitrary dimensionality and should run just fine.
 
 ## Example 1: density estimation given a dataset
 
