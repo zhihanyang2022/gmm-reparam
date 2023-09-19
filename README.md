@@ -2,7 +2,7 @@
 
 Local minima is a known problem for latent variable models. Common solutions include random starts and good initialization (e.g., K-means). In 2D, this problem can be by-passed by having a mixture of many Gaussians, as I have done here. This might be a good motivation for putting a sparsity prior over the mixture weights, as done in [Bayesian mixture of Gaussians](https://github.com/zhihanyang2022/bayesian-mixture-of-gaussians), though such a model is too complicated. For higher dimensions, having many Gaussians might not be a good strategy due to the curse of dimensionality (i.e., how many is enough?), though my code supports arbitrary dimensionality and would run fine.
 
-## Example 1: density estimation given a dataset
+## Use case 1: density estimation given a dataset
 
 Legend:
 - 1st image: true (empirical) density (from data)
@@ -15,7 +15,7 @@ Legend:
   <img src="examples/density_estimation_pngs/learning_curve.png" width="30%" />
 </p>
 
-## Example 2: variational inference given the log of an unnormalized density 
+## Use case 2: variational inference given the log of an unnormalized density 
 
 Legend:
 
